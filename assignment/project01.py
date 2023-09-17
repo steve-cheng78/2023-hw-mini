@@ -65,10 +65,11 @@ def scorer(t: list[int | None]) -> None:
     # add key, value to this dict to store the minimum, maximum, average response time
     # and score (non-misses / total flashes) i.e. the score a floating point number
     # is in range [0..1]
-    data = {"max_time" = max_t,
-            "min_time" = min_t,
-            "average_time" = avg_t,
-            "score" = score
+    data = {"response times" : t_good,
+            "max_time" : max_t,
+            "min_time" : min_t,
+            "average_time" : avg_t,
+            "score" : score
             }
 
     # %% make dynamic filename and write JSON
