@@ -66,7 +66,8 @@ def blinker_response_game(N: int) -> None:
     # %% please read these parameters from JSON file like project 01 instead of hard-coding
     sample_ms, on_ms = exercise04.get_params("project02.json")
 
-    t: list[float | None] = []
+    t1: list[float | None] = []
+    t2: list[float | None] = []
 
     project01.blinker(3, led)
 
@@ -76,20 +77,44 @@ def blinker_response_game(N: int) -> None:
         led.high()
 
         tic = time.ticks_ms()
-        t0 = None
+        ta = None
+        tb = None
+        
         while time.ticks_diff(time.ticks_ms(), tic) < on_ms:
-            if button.value() == 0:
-                t0 = time.ticks_diff(time.ticks_ms(), tic)
+            if button1.value() == 0:
+                ta = time.ticks_diff(time.ticks_ms(), tic)
                 led.low()
+        
+            if button2.value() == 0:
+                tb = time.ticks_diff(time.ticks_ms(), tic)
+                led.low()
+            
+            if ta != None && tb != None
                 break
-        t.append(t0)
-
+                
+        t1.append(ta)
+        t2.append(tb)
+        
         led.low()
 
-    project01.blinker(5, led)
+    project01.blinker(10, led)
 
-    project01.scorer(t)
-
+    project01.scorer(t1)
+    project01.scorer(t2)
+    
+import json
+    
+with open('proj1-t1.json') as file1:
+        out1 = json.load(file1)
+        
+with open('proj1-t2.json') as file2:
+        out2 = json.load(file2)
+        
+ out1.update(out2)
+ 
+ with open('proj1-combined.json') as merge_file:
+        json.dump(out1, merge_file, indent = 5)
+    
 
 _thread.start_new_thread(photocell_logger, (10, 0.5))
-blinker_response_game(5)
+blinker_response_game(10)

@@ -65,8 +65,7 @@ def scorer(t: list[int | None]) -> None:
     # add key, value to this dict to store the minimum, maximum, average response time
     # and score (non-misses / total flashes) i.e. the score a floating point number
     # is in range [0..1]
-    data = {"response times" : t_good,
-            "max_time" : max_t,
+    data = {"max_time" : max_t,
             "min_time" : min_t,
             "average_time" : avg_t,
             "score" : score
@@ -77,7 +76,7 @@ def scorer(t: list[int | None]) -> None:
     now: tuple[int] = time.localtime()
 
     now_str = "-".join(map(str, now[:3])) + "T" + "_".join(map(str, now[3:6]))
-    filename = f"proj1-{now_str}.json"
+    filename = f"proj1-{t}.json"
 
     print("write", filename)
 
