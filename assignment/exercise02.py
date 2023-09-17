@@ -16,7 +16,7 @@ def get_params(param_file: str) -> tuple[int, float]:
     if not is_regular_file(param_file):
         raise OSError(f"File {param_file} not found")
 
-    with open(param_file) as f:
+    with open(param_file, "r") as f:
         params = json.load(f)
 
     return params["loop_count"], params["sleep_time"]
@@ -31,7 +31,7 @@ def is_regular_file(path: str) -> bool:
     S_IFREG = 0x8000
 
     try:
-        return os.stat(path)[0] & S_IFREG != 0
+        return bool(os.stat(path)[0] & S_IFREG)
     except OSError:
         return False
 
