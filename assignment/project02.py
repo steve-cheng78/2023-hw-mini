@@ -8,6 +8,7 @@ use two simultaneously running threads to:
 import machine
 import time
 import _thread
+import exercise04
 
 import project01
 
@@ -59,11 +60,11 @@ def photocell_logger(N: int, sample_interval_s: float) -> None:
 def blinker_response_game(N: int) -> None:
     # %% setup input and output pins
     led = machine.Pin("LED", machine.Pin.OUT)
-    button = machine.Pin(16, machine.Pin.IN, machine.Pin.PULL_UP)
+    button1 = machine.Pin(16, machine.Pin.IN, machine.Pin.PULL_UP)
+    button2 = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
 
     # %% please read these parameters from JSON file like project 01 instead of hard-coding
-    sample_ms = 10.0
-    on_ms = 500
+    sample_ms, on_ms = exercise04.get_params("project02.json")
 
     t: list[float | None] = []
 
