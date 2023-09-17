@@ -6,9 +6,10 @@ from machine import Pin
 import time
 import random
 import json
+import numpy
 
 
-N: int = 5
+N: int = 10
 sample_ms = 10.0
 on_ms = 500
 
@@ -52,7 +53,12 @@ def scorer(t: list[int | None]) -> None:
 
     t_good = [x for x in t if x is not None]
 
+    max_t = max(t_good)
+    min_t = min(t_good)
+    
     print(t_good)
+    print(max_t)
+    print(min_t)
 
     # add key, value to this dict to store the minimum, maximum, average response time
     # and score (non-misses / total flashes) i.e. the score a floating point number
