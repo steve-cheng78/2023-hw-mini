@@ -26,4 +26,8 @@ Using a JSON file makes it easier for us to change the parameters if we wish, ra
 
 "os.path.isfile" can't be used because it is not implemented in MicroPython.
 
+## Exercise 03
 
+### Question 01
+
+By increasing the sample time in relation to the dot_dash_threshold value, the other parameters become out of sync and the Pico can no longer distinguish between staying on the same letter, changing letters, and changing words by the pause between each long or short input.
