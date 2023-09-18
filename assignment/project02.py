@@ -4,7 +4,6 @@ use two simultaneously running threads to:
 * read Photocell periodically and save to JSON file
 * code similar to your project01.py in a second thread simultaneously
 """
-
 import machine
 import time
 import _thread
