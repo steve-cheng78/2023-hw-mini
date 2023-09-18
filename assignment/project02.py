@@ -65,11 +65,12 @@ def get_params(param_file: str) -> dict:
 
 def scorerMulti(t: list[int | None]) -> None:
     # %% collate results
-    for i in len(t):
-        misses = t[i].count(None)
+    
+    for i in t:
+        misses = i.count(None)
         print(f"Player {i}: You missed the light {misses} / {len(t)} times")
 
-        t_good = [x for x in t[i] if x is not None]
+        t_good = [x for x in i if x is not None]
 
         max_t = max(t_good)
         min_t = min(t_good)
@@ -107,8 +108,10 @@ def blinker_response_game(N: int) -> None:
     button2 = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
 
     # %% please read these parameters from JSON file like project 01 instead of hard-coding
-    sample_ms, on_ms = get_params("project02.json")
-
+    params = get_params("project02.json")
+    
+    on_ms = params["on_ms"]
+    
     t1: list[int | None] = []
     t2: list[int | None] = []
     
@@ -133,7 +136,6 @@ def blinker_response_game(N: int) -> None:
                 tb = time.ticks_diff(time.ticks_ms(), tic)
                 led.low()
                 
-            print(ta)
             if ta is not None and tb is not None:
                 break
             
