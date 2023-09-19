@@ -44,17 +44,16 @@ def photocell_logger(N: int, sample_interval_s: float) -> None:
     data = {
         "light_uint16": values,
         "start_time": start_time,
-    }
+        "end_time": end_time,
+        "sample_interval_s": sample_interval_s
+        }
 
-    now: tuple[int] = time.localtime()
-
-    now_str = "-".join(map(str, now[:3])) + "T" + "_".join(map(str, now[3:6]))
-    filename = f"proj2-light-{now_str}.json"
+    filename = f"proj2-light.json"
 
     print("light measurement done: write", filename)
-
+    
     project01.write_json(filename, data)
-
+    
 def get_params(param_file: str) -> dict:
     """Reads parameters from a JSON file."""
     
@@ -65,17 +64,17 @@ def get_params(param_file: str) -> dict:
 
 def scorerMulti(t: list[int | None]) -> None:
     # %% collate results
-    
-    for i in t:
-        misses = i.count(None)
-        print(f"Player {i}: You missed the light {misses} / {len(t)} times")
+    data = {}
+    for i in range(len(t)):
+        misses = t[i].count(None)
+        print(f"Player {i+1}: You missed the light {misses} / {len(t[i])} times")
 
-        t_good = [x for x in i if x is not None]
+        t_good = [x for x in t[i] if x is not None]
 
         max_t = max(t_good)
         min_t = min(t_good)
         avg_t = sum(t_good)/len(t_good)
-        score = len(t_good)/N
+        score = len(t_good)/len(t[i])
         
         print(t_good)
         print(max_t)
@@ -85,7 +84,8 @@ def scorerMulti(t: list[int | None]) -> None:
         # add key, value to this dict to store the minimum, maximum, average response time
         # and score (non-misses / total flashes) i.e. the score a floating point number
         # is in range [0..1]
-        data[i] = {"response times" : t_good,
+        data[str(i+1)] = {
+                "response times" : t_good,
                 "max_time" : max_t,
                 "min_time" : min_t,
                 "average_time" : avg_t,
@@ -94,11 +94,11 @@ def scorerMulti(t: list[int | None]) -> None:
 
         # %% make dynamic filename and write JSON
 
-    filename = f"proj2-light.json"
+    filename = f"proj2-score.json"
 
     print("write", filename)
 
-    write_json(filename, data)
+    project01.write_json(filename, data)
 
 
 def blinker_response_game(N: int) -> None:
