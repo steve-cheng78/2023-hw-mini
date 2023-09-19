@@ -1,0 +1,1 @@
+{"1": {"score": 0.2, "response times": [500, 499], "max_time": 500, "average_time": 499.5, "min_time": 499}, "2": {"score": 0.5, "response times": [499, 499, 500, 484, 499], "max_time": 500, "average_time": 496.2, "min_time": 484}}
